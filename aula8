@@ -1,0 +1,86 @@
+//variáveis de posicionamento
+float posx1;
+float posx2 = 600;
+float velx1 = 4.0;
+float velx2 = -4.0;
+
+//variáveis de cor
+color back1 = color (255, 150, 3);
+color back2 = color (103, 49, 7);
+
+color rect1 = color (126, 24, 147);
+color rect2 = color (229, 14, 46);
+color interA = lerpColor(rect1, rect2, 0.11);
+color interB = lerpColor(rect1, rect2, 0.66);
+
+//variável liga e desliga
+
+boolean liga;
+
+void setup() {
+  size (800, 700); 
+  background (220);
+}
+
+void draw() {
+
+  noStroke(); 
+  fill(back1);
+  rect (0, 0, width, height);
+
+  //controle do mouse pressed
+  if (mouseX > 500 && mouseX < 500+50 && mouseY > 633 && mouseY < 633+50 && mousePressed) {   
+    rect1 = interA;
+    rect2 = interB;
+  } else {
+    rect1 = color (126, 24, 147);
+    rect2 = color (229, 14, 46);
+  }
+  // controle do movimento dos andantes
+
+  posx1 = posx1 + velx1;
+  if (posx1 < 0 || posx1 > width - 150) {
+    velx1 *=-1;
+  }
+  posx2 = posx2 + velx2; 
+  if (posx2 < 0 || posx2 >  width - 150) {
+    velx2 *=-1;
+  }
+
+  //controle liga-desliga
+
+  if (liga) {
+    noStroke(); 
+    fill(back2);
+    rect (0, 0, width, height);
+  }else{
+    noStroke(); 
+  fill(back1);
+  rect (0, 0, width, height);
+  }
+
+    rectMode(CORNER);
+
+    fill (rect1); 
+    rect (posx1, 70, 150, 150);
+
+    fill (rect2); 
+    rect (posx2, 400, 150, 150);
+
+    fill (120, 0);
+    stroke(rect2);
+    strokeWeight(2);
+    rect (300, 633, 50, 50);
+
+    fill (120, 0);
+    stroke(rect1);
+    strokeWeight(2); 
+    rect (500, 633, 50, 50);
+  }
+
+  void mousePressed() {
+
+    if (mouseX > 300 && mouseX < 300+50 && mouseY > 633 && mouseY < 633+50) { 
+      liga = !liga;
+    }
+  }
